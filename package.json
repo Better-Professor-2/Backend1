@@ -1,5 +1,5 @@
 {
-  "name": "Backend1",
+  "name": "better-professor-app-backend1",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -34,7 +34,8 @@
     "knex-cleaner": "^1.3.0",
     "node-gitignore": "^1.0.7",
     "pg": "^8.0.3",
-    "sqlite3": "^4.2.0"
+    "sqlite3": "^4.2.0",
+    "supertest": "^4.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.3"
