@@ -1,29 +1,30 @@
 const db = require("../database/dbConfig.js");
 
 module.exports = {
-  add,
-  find,
-  findById,
-  findProjectsById,
+  addStudent,
+  getStudents,
+  getStudentById,
+  // findProjectsById,
   remove
 }
 
-async function add(student) {
+async function addStudent() {
   const [id] = await db('students').insert(student, 'id');
 
-  return db('Students')
-    .where({ id })
-    .first();
-}
-
-function find() {
-  return db('students');
-}
-
-function findById(id) {
   return db('students')
     .where({ id })
     .first();
+}
+
+function getStudents() {
+  return db('students');
+}
+
+function getStudentById(id) {
+  return db('students')
+    .where({ id })
+    .first();
+    ````````
 }
 
 // function findProjectsById(id) {
@@ -37,7 +38,7 @@ function findById(id) {
 async function remove(id) {
   const student = await findById(id);
 
-  await db('Students')
+  await db('students')
     .where({ id })
     .del();
 
