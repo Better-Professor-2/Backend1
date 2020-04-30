@@ -1,5 +1,10 @@
 exports.up = function (knex) {
   return knex.schema
+    .createTable("Users", (tbl) => {
+      tbl.increments();
+      tbl.string("username", 128).notNullable().unique();
+      tbl.string("password", 128).notNullable();
+    })
 
     .createTable("professors", (tbl) => {
       tbl.increments("id");
@@ -40,25 +45,6 @@ exports.up = function (knex) {
         .onDelete(`CASCADE`)
         .onUpdate(`CASCADE`);
     });
-
-  // .createTable("projects", tbl => {
-  //   tbl.increments();
-  //   tbl.string("name", 128).notNullable();
-
-  //   tbl
-  //     .integer("student_id")
-  //     .unsigned()
-  //     .notNullable()
-  //     .references("id")
-  //     .inTable("");
-  //   tbl
-  //     .integer("project_id")
-  //     .unsigned()
-  //     .notNullable()
-  //     .references("id")
-  //     .inTable("projects");
-
-  // });
 };
 
 exports.down = function (knex) {
@@ -67,5 +53,4 @@ exports.down = function (knex) {
     .dropTableIfExists("professors")
     .dropTableIfExists("students")
     .dropTableIfExists("deadlines");
-  // .dropTableIfExists("projects");
 };

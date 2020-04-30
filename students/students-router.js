@@ -53,10 +53,11 @@ router.get("/", (req, res) => {
 
     db.addStudent(studentsData)
 
-      .then((students) => {
+      .then(students => {
         res.status(201).json({ message: "Successfully created student!" });
       })
-      .catch((err) => {
+      .catch(error => {
+        console.error(error);
         res.status(500).json({ errorMessage: "Not able to add students" });
       });
   });
