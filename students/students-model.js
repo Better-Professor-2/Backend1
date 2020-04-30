@@ -1,39 +1,33 @@
 const db = require("../database/dbConfig.js");
 
-module.exports = {
-  addStudent,
-  getStudents,
-  getStudentById,
-  // findProjectsById,
-  remove
-}
 
-async function addStudent() {
-  const [id] = await db('students').insert(student, 'id');
 
-  return db('students')
-    .where({ id })
-    .first();
-}
+// async function addStudent() {
+//   const [id] = await db('students').insert(student, 'id');
 
-function getStudents() {
+//   return db('students')
+//     .where({ id })
+//     .first();
+// }
+
+  const getStudents = () => {
   return db('students');
-}
+};
 
-function getStudentById(id) {
+const getStudentById = (id) => {
   return db('students')
-    .where({ id })
+    .where({ id: id})
     .first();
+
     ````````
 }
 
-// function findProjectsById(id) {
-//   return db('Projects AS p')
-//     .join('Students&Projects AS s&p', 's&p.project_id', 'p.id')
-//     .join('Students AS s', 's.id', 's&p.student_id')
-//     .where({ 's.id': id })
-//     .select('p.id', 'p.name');
-// }
+const addStudent = (data) => {
+return db('students')
+.insert(data)
+.then(([id]) => getStudentById(id))
+
+}
 
 async function remove(id) {
   const student = await findById(id);
@@ -44,3 +38,11 @@ async function remove(id) {
 
   return student;
 }
+
+module.exports = {
+  addStudent,
+  getStudents,
+  getStudentById,
+  // findProjectsById,
+  remove
+};
