@@ -15,7 +15,7 @@ const getStudents = () => {
 const getStudentById = (id) => {
   return db("students").where({ id: id }).first();
 
-  ````````;
+  
 };
 
 const addStudent = (data) => {

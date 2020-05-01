@@ -38,7 +38,9 @@ router.get("/", (req, res) => {
 
   router.get(`/`, (req, res) => {
     db.getStudents()
-      .then(students => res.status(200).json(students))
+    .then(students => res.status(200).json({message: "Students retrieved "})
+
+  )
       .catch((error) => {
         console.error(error);
         res.status(500).json({ errorMessage: `Not able to retrieve students` });
