@@ -55,7 +55,7 @@ router.get("/", (req, res) => {
 
     db.addStudent(studentsData)
 
-      .then(students => {
+      .then(student => {
         res.status(201).json({ message: "Successfully created student!" });
       })
       .catch(error => {

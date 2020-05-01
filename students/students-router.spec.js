@@ -3,10 +3,10 @@ const request = require("supertest");
 const db = require("../database/dbConfig.js");
 
 describe("students router", () => {
-    it("should return status 401 without auth", async () => {
+    it("should return status 200 without auth", async () => {
       const res = await request(server).get("/api/students");
   
-      expect(res.status).toBe(401);
+      expect(res.status).toBe(200);
     });
   
     it("should be a json response", async () => {
