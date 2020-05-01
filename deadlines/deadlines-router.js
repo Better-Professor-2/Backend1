@@ -8,7 +8,7 @@ router.use(express.json());
 const validateId = (req, res, next) => {
   const id = req.params.id;
   db.getDeadlinesById(id)
-    .then((deadline) => {
+    .then(deadline => {
       console.log(deadline);
       if (deadline) {
         req.deadline = deadline;
@@ -25,7 +25,7 @@ const validateId = (req, res, next) => {
 
 router.get(`/`, (req, res) => {
   db.getDeadlines()
-    .then((deadlines) => res.status(200).json(deadlines))
+    .then(deadlines => res.status(200).json(deadlines))
     .catch(error => {
       console.error(error);
       res.status(500).json({ errorMessage: `Not able to retrieve deadlines` });
@@ -35,12 +35,14 @@ router.get(`/`, (req, res) => {
 router.get(`/:id`, validateId, (req, res) => {
   res.status(200).json(req.deadline);
 });
+// Create deadline
 
 router.post(`/`, (req, res) => {
   const deadlinesData = req.body;
   
     db.addDeadlines(deadlinesData)
     .then(deadlines => {
+
       res.status(201).json({message: 'Created deadline successfully'});
 
     })
@@ -53,22 +55,24 @@ router.post(`/`, (req, res) => {
   
 })
 
+//Delete deadline
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
 
-// router.post('/', (req, res) => {
-//   db.addDeadlines('deadlines').insert(req.body)
-//   .then(ids => {
-//     const id = ids[0];
+  db.remove(id)
+  .then(deleted => {
+    if (deleted) {
+      res.json({ removed: deleted });
+    } else {
+      res.status(404).json({ message: 'Could not find deadline with given id' });
+    }
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to delete deadline' });
+  });
+});
 
-//     db('deadlines')
-//       .where({ id })
-//       .first()
-//     .then(animal => {
-//       res.status(201).json(deadline);
-//     });
-//   })
-//   .catch(error => {
-//     res.status(500).json(error);
-//   });
-// });
+
+
 
 module.exports = router;

@@ -38,7 +38,7 @@ router.get("/", (req, res) => {
 
   router.get(`/`, (req, res) => {
     db.getStudents()
-      .then((students) => res.status(200).json(students))
+      .then(students => res.status(200).json(students))
       .catch((error) => {
         console.error(error);
         res.status(500).json({ errorMessage: `Not able to retrieve students` });
@@ -47,7 +47,7 @@ router.get("/", (req, res) => {
   router.get(`/:id`, validateId, (req, res) => {
     res.status(200).json(req.student);
   });
-
+//Create Student
   router.post("/", (req, res) => {
     const studentsData = req.body;
 
@@ -62,22 +62,27 @@ router.get("/", (req, res) => {
       });
   });
 
+
+  // Delete student
+
   router.delete("/:id", (req, res) => {
     const { id } = req.params;
     db.remove(id)
-      .then((students) => {
+      .then(deleted => {
+        if(deleted) {
         res.status(200).json({
-          message: `Successfully deleted student with id of ${id}!`,
-        });
+          message: 'Successfully deleted student'});
+        } else {
+          res.status(404).json({message: 'Could not find student to delete'})
+        }
+      
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(500).json({ errorMessage: "Not able to remove student" });
       });
 
-    // res
-    //   .status(401)
-    //   .json({ message: `There is no student with an id of ${id}` });
-  });
+  
+    })
 });
 
 module.exports = router;

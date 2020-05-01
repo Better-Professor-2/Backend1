@@ -35,4 +35,5 @@ describe("deadlines router", () => {
         .then(res => {
           expect(res.body.message).toBe("Created deadline successfully");
         });
-    });
+    })
+});

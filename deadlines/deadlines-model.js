@@ -1,50 +1,33 @@
-const db = require('../database/dbConfig');
+const db = require("../database/dbConfig");
 
-
-
-const  getDeadlines = () => {
-    return db("deadlines");
-  };
-  
-  const getDeadlinesById = (id) => {
-    return db(`deadlines`)
-      .where({ id: id })
-      .first()
-      .then((deadline) => {
-        return { ...deadline };
-      });
-  };
-
-
-
-function findById(id) {
-  return db('deadlines')
-    .where({ id })
-    .first();
-}
-
-const getDeadlinesByCourseId =() => {
-  return db('deadlines')
-    .where({ course_id })
-    .select(
-      'id',
-      'course_id',
-      'description',
-      'due_date'
-    );
-
-    }
-
-const addDeadlines = (data) => {
-  return db('deadlines')
-  .insert(data)
-  .then(([id]) => getDeadlinesById(id));
+const getDeadlines = () => {
+  return db("deadlines");
 };
 
+const getDeadlinesById = (id) => {
+  return db(`deadlines`)
+    .where({ id: id })
+    .first()
+    .then((deadline) => {
+      return { ...deadline };
+    });
+};
 
+function findById(id) {
+  return db("deadlines").where({ id }).first();
+}
 
+const getDeadlinesByCourseId = () => {
+  return db("deadlines")
+    .where({ course_id })
+    .select("id", "course_id", "description", "due_date");
+};
 
-
+const addDeadlines = (data) => {
+  return db("deadlines")
+    .insert(data)
+    .then(([id]) => getDeadlinesById(id));
+};
 
 // async function add(deadline) {
 //   const timestamp = JSON.stringify(new Date());
@@ -55,14 +38,8 @@ const addDeadlines = (data) => {
 //     .first();
 // }
 
-async function remove(id) {
-  const message = await findById(id);
-
-  await db('deadlines')
-    .where({ id })
-    .del();
-
-  return deadline;
+function remove(id) {
+  return db("deadlines").where({ id }).del();
 }
 
 module.exports = {
@@ -70,5 +47,5 @@ module.exports = {
   getDeadlinesById,
   getDeadlinesByCourseId,
   addDeadlines,
-  remove
+  remove,
 };
